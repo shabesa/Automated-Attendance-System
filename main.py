@@ -1,7 +1,8 @@
 import os
 import json
+import face_recognition
+import cv2
 import tkinter
-from tkinter import messagebox
 from tkinter.constants import BOTTOM, CENTER, LEFT
 
 def checkJSON():

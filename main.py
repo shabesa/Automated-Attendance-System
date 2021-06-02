@@ -11,29 +11,37 @@ def checkJSON():
     fileRead.close()
 
     first_use = settings['checks']['first']
-    #print(first_use)
 
     if first_use == True:
-        UI(first_use)
+        IntroUI()
         settings['checks']['first'] = False
         file = open('settings.txt', 'w')
         json.dump(settings, file)
         file.close()
     else:
-        UI(first_use)
-  
+        MainUI()
+    
+def IntroUI():
+    body1 = tkinter.Tk()
 
-def UI(method):
+    introLabel = tkinter.Label(master=body1, text="""Welcome to Automated Attendance System. Use start to activate the system. Click ok to continue.""", width=30)
+    okButton = tkinter.Button(master=body1, text="OK", width=15, command=MainUI())
 
-        body = tkinter.Tk()
-        labelHeading = tkinter.Label(master=body, text="Automated Attendance System", width=30)
-        startButton = tkinter.Button(master=body, text="Start", width=15)
-        stopButton = tkinter.Button(master=body, text="Stop", width=15)
+    introLabel.pack()
+    okButton.pack(side=BOTTOM)
+    body1.mainloop()
+
+def MainUI():
+
+        body2 = tkinter.Tk()
+        labelHeading = tkinter.Label(master=body2, text="Automated Attendance System", width=30)
+        startButton = tkinter.Button(master=body2, text="Start", width=15)
+        stopButton = tkinter.Button(master=body2, text="Stop", width=15)
 
         labelHeading.pack(side=tkinter.TOP)
         startButton.pack(side=tkinter.LEFT)
         stopButton.pack(side=tkinter.LEFT)
-        body.mainloop()
+        body2.mainloop()
 
 
 if __name__=="__main__":

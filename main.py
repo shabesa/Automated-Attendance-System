@@ -3,7 +3,7 @@ import json
 import face_recognition
 import cv2
 import tkinter
-from tkinter.constants import BOTTOM, CENTER, LEFT
+from tkinter.constants import BOTTOM
 
 def checkJSON():
     fileRead = open("settings.txt", "r", encoding="utf-8")

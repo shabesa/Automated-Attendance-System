@@ -1,7 +1,7 @@
 import face_recognition
 import os
 import cv2
-import numpy
+import numpy as np
 
 path = 'images'
 images = []
@@ -18,22 +18,36 @@ def findEncodings(images):
     encodedList = []
     for image in images:
         img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        encoded = face_recognition.face_encodings(image)[0]
+        encoded = face_recognition.face_encodings(img)[0]
         encodedList.append(encoded)
     return encodedList
 
 encodedList = findEncodings(images)
-print(len(encodedList))
+print('Encoding Complete')
 
+cap = cv2.VideoCapture(0)
 
-# faceLoc = face_recognition.face_locations(imgRDJ)[0]
-# encodeRDJ = face_recognition.face_encodings(imgRDJ)[0]
-# cv2.rectangle(imgRDJ, (faceLoc[3], faceLoc[0]), (faceLoc[1], faceLoc[2]), (0, 0, 255), 2)
+while True:
+    frame, img = cap.read()
+    imgS = cv2.resize(img, (0, 0), None, 0.25, 0.25)
+    imgS = cv2.cvtColor(imgS, cv2.COLOR_BGR2RGB)
 
-# faceLocTest = face_recognition.face_locations(imgTest)[0]
-# encodeTest = face_recognition.face_encodings(imgTest)[0]
-# cv2.rectangle(imgTest, (faceLocTest[3], faceLocTest[0]), (faceLocTest[1], faceLocTest[2]), (0, 0, 255), 2)
+    faceLocInFrame = face_recognition.face_locations(imgS)
+    encodeCurrentFrame = face_recognition.face_encodings(imgS, faceLocInFrame)
 
-# result = face_recognition.compare_faces([encodeRDJ], encodeTest)
-# faceDis = face_recognition.face_distance([encodeRDJ], encodeTest)
-# print(result, faceDis)
+    for encodeFace, faceLoc in zip(encodeCurrentFrame, faceLocInFrame):
+        matches = face_recognition.compare_faces(encodedList, encodeFace)
+        faceDistance = face_recognition.face_distance(encodedList, encodeFace)
+        matchIndex = np.argmin(faceDistance)
+
+        if matches[matchIndex]:
+            name = classNames[matchIndex].upper()
+            print(name)
+            y1, x2, y2, x1 = faceLoc
+            y1, x2, y2, x1 = y1*4, x2*4, y2*4, x1*4
+            cv2.rectangle(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
+            cv2.rectangle(img, (x1, y2-35), (x2, y2), (0, 0, 255), cv2.FILLED)
+            cv2.putText(img, name, (x1+6, y2-6), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1 , (255, 255, 255), 2)
+
+    cv2.imshow('Webcam', img)
+    cv2.waitKey(1)

@@ -2,8 +2,13 @@ import os
 import json
 import face_recognition
 import cv2
+import pyttsx3
 import tkinter
+from tkinter import *
 from tkinter.constants import BOTTOM
+from audio import AudioEngine
+
+audioEngine = AudioEngine(pyttsx3.init('sapi5'), 0)
 
 def checkJSON():
     fileRead = open("settings.txt", "r", encoding="utf-8")
@@ -18,15 +23,15 @@ def checkJSON():
         file = open('settings.txt', 'w')
         json.dump(settings, file)
         file.close()
-    else:
+        os.system('python "E:\\shabesa\\Projects\\Shabesa\\Automated-Attendance-System\\main.py"')
+    if first_use == False:
         MainUI()
-    
+
 def IntroUI():
     body1 = tkinter.Tk()
 
-    introLabel = tkinter.Label(master=body1, text="""Welcome to Automated Attendance System. Use start to activate the system. Click ok to continue.""", width=30)
-    okButton = tkinter.Button(master=body1, text="OK", width=15, command=MainUI())
-
+    introLabel = tkinter.Label(master=body1, text="""Welcome to Automated Attendance System. Use start to activate the system. Click ok to continue.""", width=75)
+    okButton = tkinter.Button(master=body1, text="OK", width=15, command=body1.destroy)
     introLabel.pack()
     okButton.pack(side=BOTTOM)
     body1.mainloop()

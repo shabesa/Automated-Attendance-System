@@ -16,8 +16,6 @@ def IntroUI():
     okButton.pack(side=BOTTOM)
     body1.mainloop()
 
-
-
 def MainUI():
 
     fileRead = open("settings.txt", "r", encoding="utf-8")

@@ -4,46 +4,56 @@ import json
 from tkinter import *
 from tkinter.constants import BOTTOM
 from audio import AudioEngine
+from face_recog import *
 
-audioEngine = AudioEngine(pyttsx3.init('sapi5'), 0)
+class UI:
 
-def IntroUI():
-    body1 = tkinter.Tk()
+    def __init__(self):
+        self.audioEngine = AudioEngine(pyttsx3.init('sapi5'), 0)
+        self.recogEngine = FaceRecog()
+        self.encodedList = self.recogEngine.findEncodings()
 
-    introLabel = tkinter.Label(master=body1, text="""Welcome to Automated Attendance System. Use start to activate the system. Click ok to continue.""", width=75)
-    okButton = tkinter.Button(master=body1, text="OK", width=15, command=body1.destroy)
-    introLabel.pack()
-    okButton.pack(side=BOTTOM)
-    body1.mainloop()
+    def IntroUI(self):
+        body1 = tkinter.Tk()
 
-def MainUI():
+        introLabel = tkinter.Label(master=body1, text="""Welcome to Automated Attendance System. Use start to activate the system. Click ok to continue.""", width=75)
+        okButton = tkinter.Button(master=body1, text="OK", width=15, command=body1.destroy)
+        introLabel.pack()
+        okButton.pack(side=BOTTOM)
+        body1.mainloop()
 
-    fileRead = open("settings.txt", "r", encoding="utf-8")
-    settings = json.load(fileRead)
-    fileRead.close()
+    def MainUI(self):
 
-    grade = settings['class']
-    section = settings['section']
-    
-    def startButtonFunc():
-        audioEngine.speak("Starting camera")
-        startButton['state'] = DISABLED
-        stopButton['state'] = NORMAL
+        fileRead = open("settings.txt", "r", encoding="utf-8")
+        settings = json.load(fileRead)
+        fileRead.close()
+
+        grade = settings['class']
+        section = settings['section']
         
-    def stopButtonFunc():
-        audioEngine.speak("Stopping camera")
-        startButton['state'] = NORMAL
-        stopButton['state'] = DISABLED
+        def startButtonFunc():
+            stopButton['state'] = NORMAL
+            startButton['state'] = DISABLED
+            
+            if startButton['state'] == DISABLED and stopButton['state'] == NORMAL:
+                self.audioEngine.speak("Starting camera")
+                self.recogEngine.recogVideo(self.encodedList)
     
-    body2 = tkinter.Tk()
+            
+        def stopButtonFunc():
+            self.audioEngine.speak("Stopping camera")
+            startButton['state'] = NORMAL
+            stopButton['state'] = DISABLED
+        
+        body2 = tkinter.Tk()
 
-    labelHeading = tkinter.Label(master=body2, text="Automated Attendance System", width=30)
-    labelClass = tkinter.Label(master=body2,  text=f'{grade}-{section}')
-    startButton = tkinter.Button(master=body2, text="Start", width=15, command=startButtonFunc, state=NORMAL)
-    stopButton = tkinter.Button(master=body2, text="Stop", width=15, command=stopButtonFunc, state=DISABLED)
+        labelHeading = tkinter.Label(master=body2, text="Automated Attendance System", width=30)
+        labelClass = tkinter.Label(master=body2,  text=f'{grade}-{section}')
+        startButton = tkinter.Button(master=body2, text="Start", width=15, command=startButtonFunc, state=NORMAL)
+        stopButton = tkinter.Button(master=body2, text="Stop", width=15, command=stopButtonFunc, state=DISABLED)
 
-    labelHeading.pack(side=tkinter.TOP)
-    labelClass.pack()
-    startButton.pack(side=tkinter.LEFT)
-    stopButton.pack(side=tkinter.LEFT)
-    body2.mainloop()
+        labelHeading.pack(side=tkinter.TOP)
+        labelClass.pack()
+        startButton.pack(side=tkinter.LEFT)
+        stopButton.pack(side=tkinter.LEFT)
+        body2.mainloop()

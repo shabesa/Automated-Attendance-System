@@ -1,6 +1,7 @@
 import tkinter
 import pyttsx3
 import json
+import datetime
 from tkinter import *
 from tkinter.constants import BOTTOM
 from audio import AudioEngine
@@ -11,7 +12,9 @@ class UI:
     def __init__(self):
         self.audioEngine = AudioEngine(pyttsx3.init('sapi5'), 0)
         self.recogEngine = FaceRecog()
+        self.audioEngine.speak("Encoding face into models")
         self.encodedList = self.recogEngine.findEncodings()
+        self.audioEngine.speak("Encoding complete")
 
     def IntroUI(self):
         body1 = tkinter.Tk()
@@ -30,6 +33,7 @@ class UI:
 
         grade = settings['class']
         section = settings['section']
+        lastRun = settings['checks']['lastrun']
         
         def startButtonFunc():
                 control = True
@@ -38,6 +42,13 @@ class UI:
                     
                 if control == False:
                     self.audioEngine.speak("Stopping recognition")
+                    now = datetime.now()
+                    last = now.strftime("%d-%m-%y, %H:%M:%S")
+                    settings['checks']['lastrun'] = last
+                    file = open('settings.txt', 'w')
+                    json.dump(settings, file)
+                    file.close()
+                    lastRunLabel.config(text=f'Last Run: {last}')
 
         
         body2 = tkinter.Tk()
@@ -45,8 +56,10 @@ class UI:
         labelHeading = tkinter.Label(master=body2, text="Automated Attendance System", width=30)
         labelClass = tkinter.Label(master=body2,  text=f'{grade}-{section}')
         startButton = tkinter.Button(master=body2, text="Start", width=15, command=startButtonFunc, state=NORMAL)
+        lastRunLabel = tkinter.Label(master=body2, text=f'Last Run: {lastRun}')
 
         labelHeading.pack(side=tkinter.TOP)
         labelClass.pack()
-        startButton.pack(side=tkinter.BOTTOM)
+        startButton.pack()
+        lastRunLabel.pack(side=tkinter.BOTTOM)
         body2.mainloop()

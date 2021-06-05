@@ -39,10 +39,10 @@ class FaceRecog:
                 dtString = now.strftime('%H:%M:%S')
                 file.writelines(f'\n{name},{dtString}')
 
-    def recogVideo(self, encodedList):
+    def recogVideo(self, encodedList, control):
         cap = cv2.VideoCapture(0)
 
-        while True:
+        while control:
             frame, img = cap.read()
             #imgS = cv2.resize(img, (0, 0), None, 0.5, 0.5)
             imgS = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -68,5 +68,6 @@ class FaceRecog:
             cv2.imshow('Webcam', img)
             k = cv2.waitKey(30) & 0xff
             if k==27:
-                break
-        cv2.destroyAllWindows()
+                control = False
+        cv2.destroyAllWindows()           
+        return control

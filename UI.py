@@ -32,28 +32,21 @@ class UI:
         section = settings['section']
         
         def startButtonFunc():
-            stopButton['state'] = NORMAL
-            startButton['state'] = DISABLED
-            
-            if startButton['state'] == DISABLED and stopButton['state'] == NORMAL:
+                control = True
                 self.audioEngine.speak("Starting camera")
-                self.recogEngine.recogVideo(self.encodedList)
-    
-            
-        def stopButtonFunc():
-            self.audioEngine.speak("Stopping camera")
-            startButton['state'] = NORMAL
-            stopButton['state'] = DISABLED
+                control = self.recogEngine.recogVideo(self.encodedList, control)
+                    
+                if control == False:
+                    self.audioEngine.speak("Stoping camera")
+
         
         body2 = tkinter.Tk()
 
         labelHeading = tkinter.Label(master=body2, text="Automated Attendance System", width=30)
         labelClass = tkinter.Label(master=body2,  text=f'{grade}-{section}')
         startButton = tkinter.Button(master=body2, text="Start", width=15, command=startButtonFunc, state=NORMAL)
-        stopButton = tkinter.Button(master=body2, text="Stop", width=15, command=stopButtonFunc, state=DISABLED)
 
         labelHeading.pack(side=tkinter.TOP)
         labelClass.pack()
-        startButton.pack(side=tkinter.LEFT)
-        stopButton.pack(side=tkinter.LEFT)
+        startButton.pack(side=tkinter.BOTTOM)
         body2.mainloop()

@@ -16,6 +16,7 @@ class UI:
         self.encodedList = self.recogEngine.findEncodings()
         self.audioEngine.speak("Encoding complete")
 
+    #Provides intro of the project
     def IntroUI(self):
         body1 = tkinter.Tk()
 
@@ -25,8 +26,10 @@ class UI:
         okButton.pack(side=BOTTOM)
         body1.mainloop()
 
+    #The main UI with controls 
     def MainUI(self):
 
+        #Reading json file for settings
         fileRead = open("settings.txt", "r", encoding="utf-8")
         settings = json.load(fileRead)
         fileRead.close()
@@ -35,11 +38,13 @@ class UI:
         section = settings['section']
         lastRun = settings['checks']['lastrun']
         
+        #Function for the start button 
         def startButtonFunc():
                 control = True
                 self.audioEngine.speak("Starting recognition")
                 control = self.recogEngine.recogVideo(self.encodedList, control)
-                    
+                
+                #Writing the last use time 
                 if control == False:
                     self.audioEngine.speak("Stopping recognition")
                     now = datetime.now()

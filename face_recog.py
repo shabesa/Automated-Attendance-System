@@ -6,6 +6,7 @@ from datetime import datetime
 
 class FaceRecog:
 
+    #Appending the images from the path
     def __init__(self):
         self.path = 'images'
         self.images = []
@@ -18,6 +19,7 @@ class FaceRecog:
             self.classNames.append(os.path.splitext(cl)[0])
         print(self.classNames)
 
+    #Finding the encodings of the faces in the images 
     def findEncodings(self):
         encodedList = []
         for image in self.images:
@@ -27,18 +29,22 @@ class FaceRecog:
         print('Encoding Complete')
         return encodedList
     
+    #Marks the attendance into a csv file
     def markAttendance(self, name):
-        with open('attendance.csv', 'r+') as file:
+        now = datetime.now()
+        fileName = now.strftime('%d-%m-%Y')
+        with open(f'{fileName}.csv', 'r+') as file:
+            file.writelines('Name, Time')
             myDataList = file.readlines()
             nameList=[]
             for line in myDataList:
                 entry = line.split(',')
                 nameList.append(entry[0])
             if name not in nameList:
-                now = datetime.now()
                 dtString = now.strftime('%H:%M:%S')
                 file.writelines(f'\n{name},{dtString}')
 
+    #Starts the live camera for recognizing
     def recogVideo(self, encodedList, control):
         cap = cv2.VideoCapture(0)
 
@@ -54,7 +60,8 @@ class FaceRecog:
                 matches = face_recognition.compare_faces(encodedList, encodeFace)
                 faceDistance = face_recognition.face_distance(encodedList, encodeFace)
                 matchIndex = np.argmin(faceDistance)
-
+                
+                #Matching the encodings
                 if matches[matchIndex]:
                     name = self.classNames[matchIndex].upper()
                     print(name)

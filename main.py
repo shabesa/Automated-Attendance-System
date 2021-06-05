@@ -4,9 +4,11 @@ import pyttsx3
 from audio import AudioEngine
 from UI import UI
 
+#init the other modules
 audioEngine = AudioEngine(pyttsx3.init('sapi5'), 0)
 GUIs = UI()
 
+# reading the json file and starting the program
 def checkJSON():
     fileRead = open("settings.txt", "r", encoding="utf-8")
     settings = json.load(fileRead)
@@ -14,6 +16,7 @@ def checkJSON():
 
     first_use = settings['checks']['first']
 
+    #showing intro for the first use
     if first_use == True:
         GUIs.IntroUI()
         settings['checks']['first'] = False

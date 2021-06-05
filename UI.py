@@ -33,11 +33,11 @@ class UI:
         
         def startButtonFunc():
                 control = True
-                self.audioEngine.speak("Starting camera")
+                self.audioEngine.speak("Starting recognition")
                 control = self.recogEngine.recogVideo(self.encodedList, control)
                     
                 if control == False:
-                    self.audioEngine.speak("Stoping camera")
+                    self.audioEngine.speak("Stopping recognition")
 
         
         body2 = tkinter.Tk()

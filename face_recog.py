@@ -22,9 +22,10 @@ class FaceRecog:
 
         self.now = datetime.now()
         self.fileName = self.now.strftime('%d-%m-%Y')
-        with open(f'{self.fileName}.csv', 'w') as file:
-            writer = csv.writer(file)
-            writer.writerow(["Name", "Time"])
+        if f'{self.fileName}.csv' not in os.listdir('attendance'):
+            with open(f'attendance/{self.fileName}.csv', 'w') as file:
+                writer = csv.writer(file)
+                writer.writerow(["Name", "Time"])
 
     #Finding the encodings of the faces in the images 
     def findEncodings(self):
@@ -39,14 +40,15 @@ class FaceRecog:
     #Marks the attendance into a csv file
     def markAttendance(self, name):
         
-        with open(f'{self.fileName}.csv', 'r+') as file:
+        with open(f'attendance/{self.fileName}.csv', 'r+') as file:
             myDataList = file.readlines()
             nameList=[]
             for line in myDataList:
                 entry = line.split(',')
                 nameList.append(entry[0])
             if name not in nameList:
-                dtString = self.now.strftime('%H:%M:%S')
+                fileNow= datetime.now()
+                dtString = fileNow.strftime('%H:%M:%S')
                 file.writelines(f'\n{name},{dtString}')
 
     #Starts the live camera for recognizing

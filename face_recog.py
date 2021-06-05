@@ -20,6 +20,7 @@ class FaceRecog:
             self.classNames.append(os.path.splitext(cl)[0])
         print(self.classNames)
 
+        #Preventing duplication of files
         self.now = datetime.now()
         self.fileName = self.now.strftime('%d-%m-%Y')
         if f'{self.fileName}.csv' not in os.listdir('attendance'):

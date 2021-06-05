@@ -3,10 +3,11 @@ import os
 import cv2
 import numpy as np
 from datetime import datetime
+import csv
 
 class FaceRecog:
 
-    #Appending the images from the path
+    #Appending the images from the path and creating the attendance file
     def __init__(self):
         self.path = 'images'
         self.images = []
@@ -18,6 +19,12 @@ class FaceRecog:
             self.images.append(currentImg)
             self.classNames.append(os.path.splitext(cl)[0])
         print(self.classNames)
+
+        self.now = datetime.now()
+        self.fileName = self.now.strftime('%d-%m-%Y')
+        with open(f'{self.fileName}.csv', 'w') as file:
+            writer = csv.writer(file)
+            writer.writerow(["Name", "Time"])
 
     #Finding the encodings of the faces in the images 
     def findEncodings(self):
@@ -31,17 +38,15 @@ class FaceRecog:
     
     #Marks the attendance into a csv file
     def markAttendance(self, name):
-        now = datetime.now()
-        fileName = now.strftime('%d-%m-%Y')
-        with open(f'{fileName}.csv', 'r+') as file:
-            file.writelines('Name, Time')
+        
+        with open(f'{self.fileName}.csv', 'r+') as file:
             myDataList = file.readlines()
             nameList=[]
             for line in myDataList:
                 entry = line.split(',')
                 nameList.append(entry[0])
             if name not in nameList:
-                dtString = now.strftime('%H:%M:%S')
+                dtString = self.now.strftime('%H:%M:%S')
                 file.writelines(f'\n{name},{dtString}')
 
     #Starts the live camera for recognizing

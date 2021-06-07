@@ -1,3 +1,4 @@
+from cv2 import data
 import serial
 from time import sleep
 
@@ -14,8 +15,4 @@ class Reader:
         while True:
             data = self.board.readline().decode()
             print(data)
-            sleep(5)
-            if data == 'stop':
-                break
-
-reader = Reader('COM7', 9600).read()
+            return data

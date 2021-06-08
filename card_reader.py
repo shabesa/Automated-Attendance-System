@@ -14,5 +14,5 @@ class Reader:
     def read(self):
         while True:
             data = self.board.readline().decode()
-            print(data)
+            # print(data)
             return data

@@ -19,11 +19,11 @@ class CardUI:
         def readCard():
             readButton['state'] = DISABLED
             while True:
-                readCard.data = self.reader.read()
+                readCard.data = self.reader.read().splitlines()
                 # print(data)
-                if(len(readCard.data) > 1):
+                if(len(readCard.data[0]) > 1):
                     readButton['state'] = NORMAL
-                    UIDValLabel.config(text=f'{readCard.data}')
+                    UIDValLabel.config(text=f'{readCard.data[0]}')
                     # print('done')
                     break
 
@@ -33,13 +33,17 @@ class CardUI:
                 with open('cards.csv', 'r+', newline="") as file:
                     writer = csv.writer(file)
                     dataList = file.readlines()
-                    cardList=[]
+                    nameList = []
+                    cardsList = []
                     for line in dataList:
                         entry = line.split(',')
-                        cardList.append(entry[0])
-                        print(cardList)
-                    if name not in cardList:
-                        file.writelines(f'\n{name},{readCard.data}')
+                        nameList.append(entry[0])
+                        card = entry[1].splitlines()
+                        cardsList.append(card[0])
+                        print(nameList)
+                        print(cardsList)
+                    if name not in nameList:
+                        file.writelines(f'\n{name},{readCard.data[0]}')
                         name_var.set("")
                         UIDValLabel.config(text='')
 

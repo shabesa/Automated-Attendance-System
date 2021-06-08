@@ -3,7 +3,7 @@ import serial
 from time import sleep
 
 
-class Reader:
+class SerialComms:
     
     def __init__(self, port, baudrate):
         self.port = port
@@ -16,3 +16,6 @@ class Reader:
             data = self.board.readline().decode()
             # print(data)
             return data
+    
+    def write(self, msg):
+        self.board.write(msg.encode())

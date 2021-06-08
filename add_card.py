@@ -1,7 +1,6 @@
-import csv
 import tkinter
-from tkinter.constants import BOTTOM, CENTER, DISABLED, LEFT, NORMAL, RIGHT, TOP
-from card_reader import Reader
+from tkinter.constants import DISABLED, NORMAL
+from card_reader import SerialComms
 
 class CardUI:
 
@@ -9,7 +8,7 @@ class CardUI:
         pass
 
     def main(self):
-        self.reader = Reader('COM7', 9600)
+        self.board = SerialComms('COM7', 9600)
         main = tkinter.Tk()
         main.title('Card Mapper')
         main.geometry('320x140')
@@ -19,19 +18,18 @@ class CardUI:
         def readCard():
             readButton['state'] = DISABLED
             while True:
-                readCard.data = self.reader.read().splitlines()
-                # print(data)
+                readCard.data = self.board.read().splitlines()
+                # print(data)        
                 if(len(readCard.data[0]) > 1):
                     readButton['state'] = NORMAL
                     UIDValLabel.config(text=f'{readCard.data[0]}')
-                    # print('done')
+                    print('done')
                     break
 
         def mapDetails():
             name = name_var.get()
             if len(name) > 1:
                 with open('cards.csv', 'r+', newline="") as file:
-                    writer = csv.writer(file)
                     dataList = file.readlines()
                     nameList = []
                     cardsList = []
@@ -42,10 +40,11 @@ class CardUI:
                         cardsList.append(card[0])
                         print(nameList)
                         print(cardsList)
-                    if name not in nameList:
+                    if name not in nameList and readCard.data[0] not in cardsList:
                         file.writelines(f'\n{name},{readCard.data[0]}')
                         name_var.set("")
                         UIDValLabel.config(text='')
+                        
 
         name_var = tkinter.StringVar()
         

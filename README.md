@@ -3,18 +3,18 @@ This project uses python and image recognition to identify the faces of students
 
 MODULES USED:
   Software:
-    Python
-    Arduino
+    Python,
+    Arduino,
     Python Libraries:
-      Face_recognition
-      Pyttsx3
-      Open CV2
-      Pyserial
-      Tkinter
-      Datetime
-      Time
-      CSV
-      JSON
+      Face_recognition,
+      Pyttsx3,
+      Open CV2,
+      Pyserial,
+      Tkinter,
+      Datetime,
+      Time,
+      CSV,
+      JSON,
   Hardware:
-    Arduino Uno
+    Arduino Uno,
     RFID Reader

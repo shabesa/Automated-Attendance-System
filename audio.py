@@ -5,7 +5,7 @@ class AudioEngine:
     def __init__(self, id):    
         self.engine = pyttsx3.init('sapi5')
         self.id = id
-        self.voices = engine.getProperty('voices')
+        self.voices = self.engine.getProperty('voices')
         self.engine.setProperty('voice', self.voices[id].id)
 
     #Converting from text to speech

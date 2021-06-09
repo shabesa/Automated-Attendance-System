@@ -1,9 +1,11 @@
+from SerialComms import SerialComms
 import face_recognition
 import os
 import cv2
 import numpy as np
 from datetime import datetime
 import csv
+from time import sleep
 
 class FaceRecog:
 
@@ -13,6 +15,7 @@ class FaceRecog:
         self.images = []
         self.classNames = []
         self.myList = os.listdir(self.path)
+        self.board = SerialComms('COM7', 9600)
         print(self.myList)
         for cl in self.myList:
             currentImg = cv2.imread(f'{self.path}/{cl}')
@@ -27,6 +30,17 @@ class FaceRecog:
             with open(f'attendance/{self.fileName}.csv', 'w') as file:
                 writer = csv.writer(file)
                 writer.writerow(["Name", "Time"])
+
+        with open('cards.csv', 'r') as cfile:
+            myC_Data = cfile.readlines()
+            self.cardsDict = {}
+            self.cardsList = []
+            for line in myC_Data:
+                entry = line.split(',')
+                card = entry[1].splitlines()
+                self.cardsDict[card[0]] = entry[0]
+                self.cardsList.append(card[0])
+            print(self.cardsDict)
 
     #Finding the encodings of the faces in the images 
     def findEncodings(self):
@@ -47,10 +61,14 @@ class FaceRecog:
             for line in myDataList:
                 entry = line.split(',')
                 nameList.append(entry[0])
-            if name not in nameList:
-                fileNow= datetime.now()
-                dtString = fileNow.strftime('%H:%M:%S')
-                file.writelines(f'\n{name},{dtString}')
+            sleep(5)
+            data = self.board.read().splitlines()
+            print(data[0])
+            if name not in nameList and data[0] in self.cardsList and self.cardsDict[data[0]] == name:
+                    print('true')
+                    fileNow= datetime.now()
+                    dtString = fileNow.strftime('%H:%M:%S')
+                    file.writelines(f'\n{name},{dtString}')
 
     #Starts the live camera for recognizing
     def recogVideo(self, encodedList, control):
@@ -71,7 +89,7 @@ class FaceRecog:
                 
                 #Matching the encodings
                 if matches[matchIndex]:
-                    name = self.classNames[matchIndex].upper()
+                    name = self.classNames[matchIndex] #.upper()
                     print(name)
                     y1, x2, y2, x1 = faceLoc
                     #y1, x2, y2, x1 = y1*2, x2*2, y2*2, x1*2

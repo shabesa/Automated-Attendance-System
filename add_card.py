@@ -1,6 +1,6 @@
 import tkinter
 from tkinter.constants import DISABLED, NORMAL
-from card_reader import SerialComms
+from SerialComms import SerialComms
 
 class CardUI:
 

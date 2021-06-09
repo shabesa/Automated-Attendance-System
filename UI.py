@@ -20,6 +20,7 @@ class UI:
     def IntroUI(self):
         body1 = tkinter.Tk()
         body1.title("Welcome")
+        body1.resizable(False, False)
 
         introLabel = tkinter.Label(master=body1, text="""Welcome to Automated Attendance System. Use start to activate the system. Click ok to continue.""", width=75)
         okButton = tkinter.Button(master=body1, text="OK", width=15, command=body1.destroy)
@@ -60,6 +61,7 @@ class UI:
         body2 = tkinter.Tk()
         body2.geometry("910x100")
         body2.title('Automated Attendance System')
+        body2.resizable(False, False)
 
         labelHeading = tkinter.Label(master=body2, text="Automated Attendance System", width=30)
         labelClass = tkinter.Label(master=body2,  text=f'{grade}-{section}')

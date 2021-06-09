@@ -1,4 +1,3 @@
-from cv2 import data
 import serial
 from time import sleep
 

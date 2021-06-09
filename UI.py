@@ -1,5 +1,4 @@
 import tkinter
-import pyttsx3
 import json
 import datetime
 from tkinter import *
@@ -10,7 +9,7 @@ from face_recog import *
 class UI:
 
     def __init__(self):
-        self.audioEngine = AudioEngine(pyttsx3.init('sapi5'), 0)
+        self.audioEngine = AudioEngine(0)
         self.recogEngine = FaceRecog()
         self.audioEngine.speak("Encoding face into models")
         self.encodedList = self.recogEngine.findEncodings()

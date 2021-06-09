@@ -1,11 +1,8 @@
 import os
 import json
-import pyttsx3
-from audio import AudioEngine
 from UI import UI
 
 #init the other modules
-audioEngine = AudioEngine(pyttsx3.init('sapi5'), 0)
 GUIs = UI()
 
 # reading the json file and starting the program

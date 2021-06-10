@@ -75,8 +75,8 @@ class FaceRecog:
                 else:
                     self.audioEngine.speak(f'identified name {name} does not match with rfid {data[0]}')
                     print(f'identified name {name} does not match with rfid {data[0]}')
-                    self.audioEngine.speak(f'the rfid {data[0]}is the student with name {self.cardsDict[data[0]]}')
-                    print(f'the rfid {data[0]}is the student with name {self.cardsDict[data[0]]}')
+                    self.audioEngine.speak(f'the rfid {data[0]} is the student with name {self.cardsDict[data[0]]}')
+                    print(f'the rfid {data[0]} is the student with name {self.cardsDict[data[0]]}')
                     self.audioEngine.speak('try again')
                     print('try again')
 

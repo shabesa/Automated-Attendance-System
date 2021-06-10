@@ -10,10 +10,10 @@ class UI:
 
     def __init__(self):
         self.audioEngine = AudioEngine(0)
-        # self.recogEngine = FaceRecog()
-        # self.audioEngine.speak("Encoding face into models")
-        # self.encodedList = self.recogEngine.findEncodings()
-        # self.audioEngine.speak("Encoding complete")
+        self.recogEngine = FaceRecog()
+        self.audioEngine.speak("Encoding face into models")
+        self.encodedList = self.recogEngine.findEncodings()
+        self.audioEngine.speak("Encoding complete")
 
     #Provides intro of the project
     def IntroUI(self):

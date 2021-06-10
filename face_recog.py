@@ -6,6 +6,7 @@ import numpy as np
 from datetime import datetime
 import csv
 from time import sleep
+from audio import AudioEngine
 
 class FaceRecog:
 
@@ -16,6 +17,7 @@ class FaceRecog:
         self.classNames = []
         self.myList = os.listdir(self.path)
         self.board = SerialComms('COM7', 9600)
+        self.audioEngine = AudioEngine(0)
         print(self.myList)
         for cl in self.myList:
             currentImg = cv2.imread(f'{self.path}/{cl}')
@@ -64,11 +66,19 @@ class FaceRecog:
             sleep(5)
             data = self.board.read().splitlines()
             print(data[0])
-            if name not in nameList and data[0] in self.cardsList and self.cardsDict[data[0]] == name:
+            if name not in nameList and data[0] in self.cardsList:
+                if self.cardsDict[data[0]] == name:
                     print('true')
                     fileNow= datetime.now()
                     dtString = fileNow.strftime('%H:%M:%S')
                     file.writelines(f'\n{name},{dtString}')
+                else:
+                    self.audioEngine.speak(f'identified name {name} does not match with rfid {data[0]}')
+                    print(f'identified name {name} does not match with rfid {data[0]}')
+                    self.audioEngine.speak(f'the rfid {data[0]}is the student with name {self.cardsDict[data[0]]}')
+                    print(f'the rfid {data[0]}is the student with name {self.cardsDict[data[0]]}')
+                    self.audioEngine.speak('try again')
+                    print('try again')
 
     #Starts the live camera for recognizing
     def recogVideo(self, encodedList, control):

@@ -10,10 +10,10 @@ class UI:
 
     def __init__(self):
         self.audioEngine = AudioEngine(0)
-        self.recogEngine = FaceRecog()
-        self.audioEngine.speak("Encoding face into models")
-        self.encodedList = self.recogEngine.findEncodings()
-        self.audioEngine.speak("Encoding complete")
+        # self.recogEngine = FaceRecog()
+        # self.audioEngine.speak("Encoding face into models")
+        # self.encodedList = self.recogEngine.findEncodings()
+        # self.audioEngine.speak("Encoding complete")
 
     #Provides intro of the project
     def IntroUI(self):
@@ -63,12 +63,17 @@ class UI:
         body2.resizable(False, False)
 
         labelHeading = tkinter.Label(master=body2, text="Automated Attendance System", width=30)
-        labelClass = tkinter.Label(master=body2,  text=f'{grade}-{section}')
-        startButton = tkinter.Button(master=body2, text="Start", width=15, command=startButtonFunc, state=NORMAL)
-        lastRunLabel = tkinter.Label(master=body2, text=f'Last Run: {lastRun}')
+        labelHeading.place(relx=0.375, rely=0.1)
 
-        labelHeading.pack(side=tkinter.TOP)
-        labelClass.pack()
-        startButton.pack()
-        lastRunLabel.pack(side=tkinter.BOTTOM)
+        labelClass = tkinter.Label(master=body2,  text=f'{grade}-{section}')
+        labelClass.place(relx=0.475, rely=0.3)
+
+        startButton = tkinter.Button(master=body2, text="Start", width=15, command=startButtonFunc, state=NORMAL)
+        startButton.place(relx=0.4315, rely=0.5)
+
+        lastRunLabel = tkinter.Label(master=body2, text=f'Last Run: {lastRun}')
+        lastRunLabel.place(relx=0.4085, rely=0.8)
+
         body2.mainloop()
+
+base = UI().MainUI()

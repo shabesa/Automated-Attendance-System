@@ -18,3 +18,7 @@ MODULES USED:
   Hardware:
     Arduino Uno,
     RFID Reader
+
+# Usage
+Run the main.py to start the attendance system 
+To map the rfid tag with the us the add_card.py

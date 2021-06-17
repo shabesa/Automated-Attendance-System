@@ -33,7 +33,7 @@ class SendMail:
         body = f'Hi there, this is a mail from automated attenedance system. Attendance file for class {grade} - {section} on {fileName} is attached below'
         msg.attach(MIMEText(body,'plain'))
 
-        filename = f'{fileName}.csv'
+        filename = f'attendance/{fileName}.csv'
         attachment = open(filename,'rb')
 
         part = MIMEBase('application','octet-stream')

@@ -5,6 +5,7 @@ from tkinter import *
 from tkinter.constants import BOTTOM
 from audio import AudioEngine
 from face_recog import *
+from mail import SendMail
 
 class UI:
 
@@ -55,6 +56,7 @@ class UI:
                     json.dump(settings, file)
                     file.close()
                     lastRunLabel.config(text=f'Last Run: {last}')
+                    mail = SendMail()
 
         
         body2 = tkinter.Tk()

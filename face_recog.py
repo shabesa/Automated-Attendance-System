@@ -32,7 +32,8 @@ class FaceRecog:
             with open(f'attendance/{self.fileName}.csv', 'w') as file:
                 writer = csv.writer(file)
                 writer.writerow(["Name", "Time"])
-
+        
+        #reading the cards file
         with open('cards.csv', 'r') as cfile:
             myC_Data = cfile.readlines()
             self.cardsDict = {}
@@ -66,6 +67,8 @@ class FaceRecog:
             sleep(5)
             data = self.board.read().splitlines()
             print(data[0])
+            
+            #matching the data with rfid
             if name not in nameList and data[0] in self.cardsList:
                 if self.cardsDict[data[0]] == name:
                     print('true')

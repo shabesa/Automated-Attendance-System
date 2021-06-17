@@ -14,7 +14,7 @@ class CardUI:
         main.geometry('320x140')
         main.resizable(False, False)
         
-        
+        # Function to read the rifd data
         def readCard():
             readButton['state'] = DISABLED
             while True:
@@ -25,7 +25,8 @@ class CardUI:
                     UIDValLabel.config(text=f'{readCard.data[0]}')
                     print('done')
                     break
-
+        
+        #function to map the details
         def mapDetails():
             name = name_var.get()
             if len(name) > 1:
@@ -45,6 +46,8 @@ class CardUI:
                         name_var.set("")
                         UIDValLabel.config(text='')
                         
+
+        # UI for the card mapper
 
         name_var = tkinter.StringVar()
         

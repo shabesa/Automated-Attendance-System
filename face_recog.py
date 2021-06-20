@@ -58,6 +58,8 @@ class FaceRecog:
     
     #Marks the attendance into a csv file
     def markAttendance(self, name):
+        
+        # opening csv file with UTF-8 support
         with open(f'attendance/{self.fileName}.csv', 'r+', encoding='UTF-8') as file:
             myDataList = file.readlines()
             nameList=[]
@@ -70,25 +72,33 @@ class FaceRecog:
 
             #matching the data with rfid
             if name not in nameList and data[0] in self.cardsList:
+                # finding students rfid and marking attendance
                 if self.cardsDict[data[0]] == name:
                     print('on time')
                     fileNow= datetime.now()
                     dtString = fileNow.strftime('%H:%M:%S')
+                    
+                    # checking time limit 
                     if dtString <= '08:00:00':
                         file.writelines(f"\n{name},{dtString},On Time,✔")
                     else:
                         file.writelines(f"\n{name},{dtString},Late,✔")
-
+                
+                # using overide - teachers key to mark attendance of students with no rfid
                 elif self.cardsDict[data[0]] == 'OVERIDE':
                     print('overide')
                     fileNow= datetime.now()
                     dtString = fileNow.strftime('%H:%M:%S')
+                    
+                    # checking time limit
                     if dtString <= '08:00:00':
                         file.writelines(f"\n{name},{dtString},On Time,❌")
                     else:
                         file.writelines(f"\n{name},{dtString},Late,❌")
                 
+                # using cancel to ignore unwanted detection 
                 elif self.cardsDict[data[0]] == 'CANCEL':
+                    print('CANCEL')
                     return
 
                 else:

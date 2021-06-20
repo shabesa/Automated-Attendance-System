@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 from SerialComms import SerialComms
 import face_recognition
 import os
@@ -31,7 +32,7 @@ class FaceRecog:
         if f'{self.fileName}.csv' not in os.listdir('attendance'):
             with open(f'attendance/{self.fileName}.csv', 'w') as file:
                 writer = csv.writer(file)
-                writer.writerow(["Name", "Time"])
+                writer.writerow(["Name", "Time", "Verification"])
         
         #reading the cards file
         with open('cards.csv', 'r') as cfile:
@@ -58,7 +59,7 @@ class FaceRecog:
     #Marks the attendance into a csv file
     def markAttendance(self, name):
         
-        with open(f'attendance/{self.fileName}.csv', 'r+') as file:
+        with open(f'attendance/{self.fileName}.csv', 'r+', encoding='UTF-8') as file:
             myDataList = file.readlines()
             nameList=[]
             for line in myDataList:
@@ -74,7 +75,12 @@ class FaceRecog:
                     print('true')
                     fileNow= datetime.now()
                     dtString = fileNow.strftime('%H:%M:%S')
-                    file.writelines(f'\n{name},{dtString}')
+                    file.writelines(f"\n{name},{dtString},✔")
+                elif self.cardsDict[data[0]] == 'OVERIDE':
+                    print('true')
+                    fileNow= datetime.now()
+                    dtString = fileNow.strftime('%H:%M:%S')
+                    file.writelines(f"\n{name},{dtString},❌")
                 else:
                     self.audioEngine.speak(f'identified name {name} does not match with rfid {data[0]}')
                     print(f'identified name {name} does not match with rfid {data[0]}')

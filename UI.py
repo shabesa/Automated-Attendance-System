@@ -77,5 +77,3 @@ class UI:
         lastRunLabel.place(relx=0.4085, rely=0.8)
 
         body2.mainloop()
-
-base = UI().MainUI()

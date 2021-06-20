@@ -32,7 +32,7 @@ class FaceRecog:
         if f'{self.fileName}.csv' not in os.listdir('attendance'):
             with open(f'attendance/{self.fileName}.csv', 'w') as file:
                 writer = csv.writer(file)
-                writer.writerow(["Name", "Time", "Verification"])
+                writer.writerow(["Name", "Time", "Status", "Verification"])
         
         #reading the cards file
         with open('cards.csv', 'r') as cfile:
@@ -58,7 +58,6 @@ class FaceRecog:
     
     #Marks the attendance into a csv file
     def markAttendance(self, name):
-        
         with open(f'attendance/{self.fileName}.csv', 'r+', encoding='UTF-8') as file:
             myDataList = file.readlines()
             nameList=[]
@@ -68,19 +67,30 @@ class FaceRecog:
             sleep(5)
             data = self.board.read().splitlines()
             print(data[0])
-            
+
             #matching the data with rfid
             if name not in nameList and data[0] in self.cardsList:
                 if self.cardsDict[data[0]] == name:
-                    print('true')
+                    print('on time')
                     fileNow= datetime.now()
                     dtString = fileNow.strftime('%H:%M:%S')
-                    file.writelines(f"\n{name},{dtString},✔")
+                    if dtString <= '08:00:00':
+                        file.writelines(f"\n{name},{dtString},On Time,✔")
+                    else:
+                        file.writelines(f"\n{name},{dtString},Late,✔")
+
                 elif self.cardsDict[data[0]] == 'OVERIDE':
-                    print('true')
+                    print('overide')
                     fileNow= datetime.now()
                     dtString = fileNow.strftime('%H:%M:%S')
-                    file.writelines(f"\n{name},{dtString},❌")
+                    if dtString <= '08:00:00':
+                        file.writelines(f"\n{name},{dtString},On Time,❌")
+                    else:
+                        file.writelines(f"\n{name},{dtString},Late,❌")
+                
+                elif self.cardsDict[data[0]] == 'CANCEL':
+                    return
+
                 else:
                     self.audioEngine.speak(f'identified name {name} does not match with rfid {data[0]}')
                     print(f'identified name {name} does not match with rfid {data[0]}')

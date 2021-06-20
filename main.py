@@ -6,7 +6,7 @@ from UI import UI
 GUIs = UI()
 
 # reading the json file and starting the program
-def checkJSON():
+def Main():
     fileRead = open("settings.txt", "r", encoding="utf-8")
     settings = json.load(fileRead)
     fileRead.close()
@@ -25,4 +25,4 @@ def checkJSON():
         GUIs.MainUI()
 
 if __name__=="__main__":
-    checkJSON()
+    Main()

@@ -6,7 +6,6 @@ import cv2
 import numpy as np
 from datetime import datetime
 import csv
-import threading
 from time import sleep
 from audio import AudioEngine
 

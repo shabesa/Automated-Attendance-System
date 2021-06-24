@@ -6,6 +6,7 @@ import cv2
 import numpy as np
 from datetime import datetime
 import csv
+import threading
 from time import sleep
 from audio import AudioEngine
 
@@ -17,7 +18,8 @@ class FaceRecog:
         self.images = []
         self.classNames = []
         self.myList = os.listdir(self.path)
-        self.board = SerialComms('COM7', 9600)
+        self.board1 = SerialComms('COM8', 9600)
+        self.board2 = SerialComms('COM7', 9600)
         self.audioEngine = AudioEngine(0)
         print(self.myList)
         for cl in self.myList:
@@ -66,15 +68,17 @@ class FaceRecog:
             for line in myDataList:
                 entry = line.split(',')
                 nameList.append(entry[0])
+            val_send = name.split(' ')
+            self.board2.write(val_send[0])
             sleep(5)
-            data = self.board.read().splitlines()
+            data = self.board1.read().splitlines()
             print(data[0])
 
             #matching the data with rfid
             if name not in nameList and data[0] in self.cardsList:
                 # finding students rfid and marking attendance
                 if self.cardsDict[data[0]] == name:
-                    print('on time')
+                    print('normal')
                     fileNow= datetime.now()
                     dtString = fileNow.strftime('%H:%M:%S')
                     

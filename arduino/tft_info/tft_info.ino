@@ -38,6 +38,7 @@ TSPoint tp;
 #define PURPLE  0xA25C
 
 String imgName;
+String text;
 
 void setup() {
   Serial.begin(9600);
@@ -69,8 +70,13 @@ void setup() {
 void loop() {
   if (Serial.available() > 0){
     imgName = Serial.readString();
+    text = imgName;
+    tft.fillScreen(BLACK);
     imgName = imgName + ".bmp";
     showBMP(imgName, 0, 0);
+    tft.setCursor(10, 290);
+    tft.setTextSize(3);
+    tft.println(text);
   }
 }
  

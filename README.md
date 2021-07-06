@@ -28,9 +28,11 @@ This project uses python and image recognition to identify the faces of students
 
 ## Usage
 
-### Run the main.py to start the attendance system
+### Different modules of the project use different python files  
 
-### To map the rfid tag with the us the add_card.py
+#### Run the main.py to start the attendance system
+
+#### To map the rfid tag with the us the add_card.py
 
 ## Requirements
 

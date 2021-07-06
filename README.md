@@ -33,6 +33,7 @@ To map the rfid tag with the us the add_card.py
 
 ## Requirements
 
-Run this line to install the required modules:
-Windows - pip install -r requirements.txt
-Others - pip3 install -r requirements.txt
+### Run this line to install the required modules
+
+  Windows - pip install -r requirements.txt
+  Others - pip3 install -r requirements.txt

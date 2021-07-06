@@ -17,7 +17,9 @@ MODULES USED:
       JSON,
   Hardware:
     Arduino Uno,
-    RFID Reader
+    Arduino Mega,
+    RFID Reader,
+    TFT Module
 
 # Usage
 Run the main.py to start the attendance system 

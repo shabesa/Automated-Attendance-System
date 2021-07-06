@@ -4,7 +4,8 @@ This project uses python and image recognition to identify the faces of students
 
 ## MODULES USED
 
-  Software:
+### Software
+
     Python,
     Arduino,
     Python Libraries:
@@ -17,7 +18,9 @@ This project uses python and image recognition to identify the faces of students
       Time,
       CSV,
       JSON,
-  Hardware:
+
+### Hardware
+
     Arduino Uno,
     Arduino Mega,
     RFID Reader,

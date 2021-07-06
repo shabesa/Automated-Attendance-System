@@ -9,15 +9,15 @@ This project uses python and image recognition to identify the faces of students
     Python,
     Arduino,
     Python Libraries:
-      Face_recognition,
-      Pyttsx3,
-      Open CV2,
-      Pyserial,
-      Tkinter,
-      Datetime,
-      Time,
-      CSV,
-      JSON,
+    Face_recognition,
+    Pyttsx3,
+    Open CV2,
+    Pyserial,
+    Tkinter,
+    Datetime,
+    Time,
+    CSV,
+    JSON,
 
 ### Hardware
 
@@ -35,5 +35,5 @@ To map the rfid tag with the us the add_card.py
 
 ### Run this line to install the required modules
 
-  Windows - pip install -r requirements.txt
-  Others - pip3 install -r requirements.txt
+    Windows - pip install -r requirements.txt
+    Others - pip3 install -r requirements.txt

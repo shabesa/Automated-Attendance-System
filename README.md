@@ -1,7 +1,7 @@
 # Automated-Attendance-System
 This project uses python and image recognition to identify the faces of students from the images of the students. It verifies the entry using rfid tags and marks the attendance in a csv file which can be opened in Excel Software.
 
-MODULES USED:
+# MODULES USED:
   Software:
     Python,
     Arduino,
@@ -24,3 +24,8 @@ MODULES USED:
 # Usage
 Run the main.py to start the attendance system 
 To map the rfid tag with the us the add_card.py
+
+# Requirements
+Run this line to install the required modules: 
+Windows - pip install -r requirements.txt
+Others - pip3 install -r requirements.txt

@@ -55,7 +55,7 @@ Note: IQR pin is not use in both cases!!!
 ### Mega Rfid Connection
 
 | Module Pin | Board Pin |
-
+|    ---     |    ---    |
 |  Vin/3.3V  |    3.3V   |
 
 |   Reset    |     5     |
@@ -75,4 +75,3 @@ Note: IQR pin is not use in both cases!!!
 ### Uno Rfid Connection
 
 ![Uno](<https://github.com/shabesa/Automated-Attendance-System/blob/main/circuit/rfid_uno.jpg?raw=true>)
-

@@ -52,7 +52,7 @@ This project uses python and image recognition to identify the faces of students
 
 ### Mega Rfid Connection
 
-![Mega](<https://github.com/shabesa/Automated-Attendance-System/blob/main/rfid_mega.jpg?raw=true>)
+![Mega](<https://github.com/shabesa/Automated-Attendance-System/blob/main/circuit/rfid_mega.jpg?raw=true>)
 
 ### Uno Rfid Connection
 

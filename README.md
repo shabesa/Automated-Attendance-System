@@ -4,8 +4,8 @@ This project uses python and image recognition to identify the faces of students
 
 ## Software
 
-Python
-Arduino
+    Python
+    Arduino
 
 ## MODULES USED
 

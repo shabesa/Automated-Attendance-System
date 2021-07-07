@@ -76,4 +76,3 @@ Note: IQR pin is not use in both cases!!!
 
 ![Uno](<https://github.com/shabesa/Automated-Attendance-System/blob/main/circuit/rfid_uno.jpg?raw=true>)
 
-

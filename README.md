@@ -52,6 +52,22 @@ This project uses python and image recognition to identify the faces of students
 
 ### Mega Rfid Connection
 
+| Module Pin | Board Pin |
+|    ---     |    ---    |
+|  Vin/3.3V  |    3.3V   |
+|    ---     |    ---    |
+|   Reset    |     5     |
+|    ---     |    ---    |
+|    Gnd     |    Gnd    |
+|    ---     |    ---    |
+|   MISO     |    50     |
+|    ---     |    ---    |
+|   MOSI     |    51     |
+|    ---     |    ---    |
+|    SCK     |    52     |
+|    ---     |    ---    |
+|    SDA     |    53     |
+
 ![Mega](<https://github.com/shabesa/Automated-Attendance-System/blob/main/circuit/rfid_mega.jpg?raw=true>)
 
 ### Uno Rfid Connection

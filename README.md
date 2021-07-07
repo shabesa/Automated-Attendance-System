@@ -56,4 +56,4 @@ This project uses python and image recognition to identify the faces of students
 
 ### Uno Rfid Connection
 
-    rfid uno.jpg
+![Uno](<https://github.com/shabesa/Automated-Attendance-System/blob/main/circuit/rfid_uno.jpg?raw=true>)

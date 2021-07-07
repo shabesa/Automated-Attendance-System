@@ -50,6 +50,8 @@ This project uses python and image recognition to identify the faces of students
 
 ## Circuit Connections
 
+Note: IQR pin is not use in both cases!!!
+
 ### Mega Rfid Connection
 
 ![Mega](<https://github.com/shabesa/Automated-Attendance-System/blob/main/circuit/rfid_mega.jpg?raw=true>)
@@ -57,3 +59,5 @@ This project uses python and image recognition to identify the faces of students
 ### Uno Rfid Connection
 
 ![Uno](<https://github.com/shabesa/Automated-Attendance-System/blob/main/circuit/rfid_uno.jpg?raw=true>)
+
+

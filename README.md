@@ -57,17 +57,17 @@ Note: IQR pin is not use in both cases!!!
 | Module Pin | Board Pin |
 |    ---     |    ---    |
 |  Vin/3.3V  |    3.3V   |
-
+|    ---     |    ---    |
 |   Reset    |     5     |
-
+|    ---     |    ---    |
 |    Gnd     |    Gnd    |
-
+|    ---     |    ---    |
 |   MISO     |    50     |
-
+|    ---     |    ---    |
 |   MOSI     |    51     |
-
+|    ---     |    ---    |
 |    SCK     |    52     |
-
+|    ---     |    ---    |
 |    SDA     |    53     |
 
 ![Mega](<https://github.com/shabesa/Automated-Attendance-System/blob/main/circuit/rfid_mega.jpg?raw=true>)

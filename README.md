@@ -48,12 +48,12 @@ This project uses python and image recognition to identify the faces of students
 
     pip3 install -r requirements.txt
 
-## Circuit Connections 
+## Circuit Connections
 
-### Mega Rfid Connection 
+### Mega Rfid Connection
 
-    rfid mega.jpg
-    
-### Uno Rfid Connection 
-    
+![Mega](<https://github.com/shabesa/Automated-Attendance-System/blob/main/rfid_mega.jpg?raw=true>)
+
+### Uno Rfid Connection
+
     rfid uno.jpg

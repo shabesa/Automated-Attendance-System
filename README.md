@@ -68,4 +68,14 @@ Note: IQR pin is not use in both cases!!!
 
 ### Uno Rfid Connection
 
+| Module Pin | Board Pin |
+|    ---     |    ---    |
+|  Vin/3.3V  |    3.3V   |
+|   Reset    |     9     |
+|    Gnd     |    Gnd    |
+|   MISO     |    12     |
+|   MOSI     |    11     |
+|    SCK     |    13     |
+|    SDA     |    10     |
+
 ![Uno](<https://github.com/shabesa/Automated-Attendance-System/blob/main/circuit/rfid_uno.jpg?raw=true>)

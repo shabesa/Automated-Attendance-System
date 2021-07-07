@@ -56,7 +56,7 @@ class UI:
                     json.dump(settings, file)
                     file.close()
                     lastRunLabel.config(text=f'Last Run: {last}')
-                    mail = SendMail()
+                    SendMail()
 
         
         body2 = tkinter.Tk()

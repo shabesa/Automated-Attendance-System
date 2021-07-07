@@ -47,3 +47,13 @@ This project uses python and image recognition to identify the faces of students
 #### Others -
 
     pip3 install -r requirements.txt
+
+## Circuit Connections 
+
+### Mega Rfid Connection 
+
+    rfid mega.jpg
+    
+### Uno Rfid Connection 
+    
+    rfid uno.jpg

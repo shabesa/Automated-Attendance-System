@@ -8,6 +8,7 @@ from datetime import datetime
 import csv
 from time import sleep
 from audio import AudioEngine
+from firebase import UpdateBase
 
 class FaceRecog:
 
@@ -18,8 +19,9 @@ class FaceRecog:
         self.classNames = []
         self.myList = os.listdir(self.path)
         self.board1 = SerialComms('COM8', 9600)
-        self.board2 = SerialComms('COM7', 9600)
+        # self.board2 = SerialComms('COM7', 9600)
         self.audioEngine = AudioEngine(0)
+        self.fireBase = UpdateBase()
         print(self.myList)
         for cl in self.myList:
             currentImg = cv2.imread(f'{self.path}/{cl}')
@@ -68,7 +70,7 @@ class FaceRecog:
                 entry = line.split(',')
                 nameList.append(entry[0])
             val_send = name.split(' ')
-            self.board2.write(val_send[0])
+            # self.board2.write(val_send[0])
             sleep(5)
             data = self.board1.read().splitlines()
             print(data[0])
@@ -84,8 +86,10 @@ class FaceRecog:
                     # checking time limit 
                     if dtString <= '08:00:00':
                         file.writelines(f"\n{name},{dtString},On Time,✔")
+                        self.fireBase.addData(self.fileName, name, dtString, u'student', u'On Time')
                     else:
                         file.writelines(f"\n{name},{dtString},Late,✔")
+                        self.fireBase.addData(self.fileName, name, dtString, u'student', u'LLate')
                 
                 # using overide - teachers key to mark attendance of students with no rfid
                 elif self.cardsDict[data[0]] == 'OVERIDE':
@@ -96,8 +100,10 @@ class FaceRecog:
                     # checking time limit
                     if dtString <= '08:00:00':
                         file.writelines(f"\n{name},{dtString},On Time,❌")
+                        self.fireBase.addData(self.fileName, name, dtString, u'Overide', u'On Time')
                     else:
                         file.writelines(f"\n{name},{dtString},Late,❌")
+                        self.fireBase.addData(self.fileName, name, dtString, u'Overide', u'Late')
                 
                 # using cancel to ignore unwanted detection 
                 elif self.cardsDict[data[0]] == 'CANCEL':

@@ -1,1 +1,1 @@
-{"checks": {"first": false, "lastrun": "10-06-21, 20:25:50"}, "class": "12", "section": "A1", "mail": {"emailID": "sender", "password": "sender_password", "recipient": "recipient"}}
+{"checks": {"first": false, "lastrun": "10-06-21, 20:25:50"}, "class": "12", "section": "A1", "mail": {"emailID": "sender", "password": "sender_password", "recipient": "recipient"}, "auth": {"user" : "11a1@autoattend.in", "password": "11a1auto_attend"}}

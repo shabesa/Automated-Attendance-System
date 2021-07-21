@@ -20,6 +20,7 @@ This project uses python and image recognition to identify the faces of students
     Time
     CSV
     JSON
+    firebase_admin
 
 ### Hardware
 
@@ -35,6 +36,14 @@ This project uses python and image recognition to identify the faces of students
 #### Run the main.py to start the attendance system
 
 #### To map the rfid tag with the us the add_card.py
+
+## !!! EXTRAS
+
+### This project is integrated with firebase and to an Mobile app
+
+#### Check out the app here
+
+- [Flutter APP](https://github.com/shabesa/Attendance_Viewer)
 
 ## Requirements
 

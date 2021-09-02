@@ -1,3 +1,4 @@
+from audio import AudioEngine
 from datetime import datetime
 import os
 import tkinter
@@ -13,6 +14,7 @@ class DataMapper:
         self.month = self.now.strftime('%B')
         self.dir = f'attendance/{self.month}'
         self.csvList = os.listdir(self.dir)
+        self.audioEngine = AudioEngine(0)
         print(self.csvList)
         self.splitList = []
         for i in self.csvList:
@@ -51,9 +53,11 @@ class DataMapper:
             print(var.get())
             selection = "You selected the " + graphTypes[var.get()] + " graph"
             statusLabel.config(text = selection)
+            self.audioEngine.speak(f'{graphTypes[var.get()]} graph')
 
         def plotCommand():
             self.read()
+            self.audioEngine.speak('plotting Graph')
             if var.get() == 0:
                 pl.plot(self.splitList, self.dataList)
             elif var.get() == 1:

@@ -1,8 +1,11 @@
+from data_map import DataMapper
 import tkinter
 import json
 import datetime
 from tkinter import *
 from tkinter.constants import BOTTOM
+
+from matplotlib.pyplot import text
 from audio import AudioEngine
 from face_recog import *
 from mail import SendMail
@@ -10,11 +13,12 @@ from mail import SendMail
 class UI:
 
     def __init__(self):
+        self.control = False
         self.audioEngine = AudioEngine(0)
         self.recogEngine = FaceRecog()
         self.audioEngine.speak("Encoding face into models")
         self.encodedList = self.recogEngine.findEncodings()
-        self.audioEngine.speak("Encoding complete")
+        self.audioEngine.speak("Encoding complete")   
 
     #Provides intro of the project
     def IntroUI(self):
@@ -28,7 +32,7 @@ class UI:
         okButton.pack(side=BOTTOM)
         body1.mainloop()
 
-    #The main UI with controls 
+    #The main UI with self.controls 
     def MainUI(self):
 
         #Reading json file for settings
@@ -42,12 +46,12 @@ class UI:
         
         #Function for the start button 
         def startButtonFunc():
-                control = True
+                self.control = True
                 self.audioEngine.speak("Starting recognition")
-                control = self.recogEngine.recogVideo(self.encodedList, control)
+                self.control = self.recogEngine.recogVideo(self.encodedList, self.control)
                 
                 #Writing the last use time 
-                if control == False:
+                if self.control == False:
                     self.audioEngine.speak("Stopping recognition")
                     now = datetime.now()
                     last = now.strftime("%d-%m-%y, %H:%M:%S")
@@ -57,8 +61,10 @@ class UI:
                     file.close()
                     lastRunLabel.config(text=f'Last Run: {last}')
                     SendMail()
-
         
+        def graphcommand():
+            os.system('python "E:\\shabesa\\Projects\\Shabesa\\Automated-Attendance-System\\data_map.py"')
+
         body2 = tkinter.Tk()
         body2.geometry("910x100")
         body2.title('Automated Attendance System')
@@ -71,7 +77,10 @@ class UI:
         labelClass.place(relx=0.475, rely=0.3)
 
         startButton = tkinter.Button(master=body2, text="Start", width=15, command=startButtonFunc, state=NORMAL)
-        startButton.place(relx=0.4315, rely=0.5)
+        startButton.place(relx=0.2315, rely=0.5)
+
+        mapButton = tkinter.Button(master=body2, text='Graph', width=15, command=graphcommand, state=NORMAL)
+        mapButton.place(relx=0.6315, rely=0.5)
 
         lastRunLabel = tkinter.Label(master=body2, text=f'Last Run: {lastRun}')
         lastRunLabel.place(relx=0.4085, rely=0.8)

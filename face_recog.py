@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from data_map import DataMapper
 from SerialComms import SerialComms
 import face_recognition
 import os
@@ -18,7 +19,7 @@ class FaceRecog:
         self.images = []
         self.classNames = []
         self.myList = os.listdir(self.path)
-        self.board1 = SerialComms('COM8', 9600)
+        self.board1 = SerialComms('COM12', 9600)
         # self.board2 = SerialComms('COM7', 9600)
         self.audioEngine = AudioEngine(0)
         self.fireBase = UpdateBase()
@@ -32,11 +33,19 @@ class FaceRecog:
         #Preventing duplication of files
         self.now = datetime.now()
         self.fileName = self.now.strftime('%d-%m-%Y')
-        if f'{self.fileName}.csv' not in os.listdir('attendance'):
-            with open(f'attendance/{self.fileName}.csv', 'w') as file:
+        self.month = self.now.strftime('%B')
+        if self.month not in os.listdir('attendance'):
+            os.makedirs(f'attendance/{self.month}')
+            if f'{self.fileName}.csv' not in os.listdir(f'attendance/{self.month}'):
+                with open(f'attendance/{self.month}/{self.fileName}.csv', 'w') as file:
+                    writer = csv.writer(file)
+                    writer.writerow(["Name", "Time", "Status", "Verification"])
+        
+        elif self.month in os.listdir('attendance'):
+            with open(f'attendance/{self.month}/{self.fileName}.csv', 'w') as file:
                 writer = csv.writer(file)
                 writer.writerow(["Name", "Time", "Status", "Verification"])
-        
+            
         #reading the cards file
         with open('cards.csv', 'r') as cfile:
             myC_Data = cfile.readlines()

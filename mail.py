@@ -15,6 +15,7 @@ class SendMail:
 
         now = datetime.now()
         fileName = now.strftime('%d-%m-%Y')
+        month = now.strftime('%B')
 
         email_user = settings['mail']['emailID']
         email_password = settings['mail']['password']
@@ -33,7 +34,7 @@ class SendMail:
         body = f'Hi there, this is a mail from automated attenedance system. Attendance file for class {grade} - {section} on {fileName} is attached below'
         msg.attach(MIMEText(body,'plain'))
 
-        filename = f'attendance/{fileName}.csv'
+        filename = f'attendance/{month}/{fileName}.csv'
         attachment = open(filename,'rb')
 
         part = MIMEBase('application','octet-stream')

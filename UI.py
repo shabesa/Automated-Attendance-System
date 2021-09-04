@@ -16,6 +16,7 @@ class UI:
         self.control = False
         self.audioEngine = AudioEngine(0)
         self.recogEngine = FaceRecog()
+        self.mapper = DataMapper()
         self.audioEngine.speak("Encoding face into models")
         self.encodedList = self.recogEngine.findEncodings()
         self.audioEngine.speak("Encoding complete")   
@@ -46,24 +47,24 @@ class UI:
         
         #Function for the start button 
         def startButtonFunc():
-                self.control = True
-                self.audioEngine.speak("Starting recognition")
-                self.control = self.recogEngine.recogVideo(self.encodedList, self.control)
-                
-                #Writing the last use time 
-                if self.control == False:
-                    self.audioEngine.speak("Stopping recognition")
-                    now = datetime.now()
-                    last = now.strftime("%d-%m-%y, %H:%M:%S")
-                    settings['checks']['lastrun'] = last
-                    file = open('settings.txt', 'w')
-                    json.dump(settings, file)
-                    file.close()
-                    lastRunLabel.config(text=f'Last Run: {last}')
-                    SendMail()
+            self.control = True
+            self.audioEngine.speak("Starting recognition")
+            self.control = self.recogEngine.recogVideo(self.encodedList, self.control)
+            
+            #Writing the last use time 
+            if self.control == False:
+                self.audioEngine.speak("Stopping recognition")
+                now = datetime.now()
+                last = now.strftime("%d-%m-%y, %H:%M:%S")
+                settings['checks']['lastrun'] = last
+                file = open('settings.txt', 'w')
+                json.dump(settings, file)
+                file.close()
+                lastRunLabel.config(text=f'Last Run: {last}')
+                SendMail()
         
         def graphcommand():
-            os.system('python "E:\\shabesa\\Projects\\Shabesa\\Automated-Attendance-System\\data_map.py"')
+            self.mapper.graphUI()
 
         body2 = tkinter.Tk()
         body2.geometry("910x100")

@@ -13,16 +13,17 @@ class DataMapper:
         self.fileName = self.now.strftime('%d-%m-%Y')
         self.month = self.now.strftime('%B')
         self.dir = f'attendance/{self.month}'
-        self.csvList = os.listdir(self.dir)
         self.audioEngine = AudioEngine(0)
+        
+
+    def read(self):
+        self.csvList = os.listdir(self.dir)
         print(self.csvList)
         self.splitList = []
         for i in self.csvList:
             entry = i.split('.')
             self.splitList.append(entry[0])
         print(self.splitList)
-
-    def read(self):
         self.dataList = []
         for file in self.csvList:
             self.df = pd.read_csv(f'attendance/{self.month}/{file}')
@@ -67,7 +68,7 @@ class DataMapper:
             pl.show()
 
 
-        var = tkinter.IntVar()
+        var = tkinter.IntVar(master=graphPage)
 
         Rad1 = tkinter.Radiobutton(master=graphPage, text=f'{graphTypes[0]}', variable=var, value=0, command=select)
         Rad1.place(relx=0.135, rely=0.3)
@@ -87,4 +88,4 @@ class DataMapper:
 
         graphPage.mainloop()
 
-DataMapper().graphUI()
+# DataMapper().graphUI()

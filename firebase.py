@@ -21,12 +21,13 @@ class UpdateBase:
         user = auth.create_user(email = self.email, password = self.password)
         print(f"User created successfully : {user.uid}")
 
-    def addData(self, date, name, time, verification):
+    def addData(self, date, name, time, verification, status):
         doc_ref = self.db.collection(date).document()
         doc_ref.set({
             u'Name': name,
             u'Time': time,
-            u'Verification': verification
+            u'Verification': verification,
+            u'Status' : status
         })
 
     def readData(self, date):

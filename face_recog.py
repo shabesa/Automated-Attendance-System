@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-from data_map import DataMapper
 from SerialComms import SerialComms
 import face_recognition
 import os
@@ -19,7 +18,7 @@ class FaceRecog:
         self.images = []
         self.classNames = []
         self.myList = os.listdir(self.path)
-        self.board1 = SerialComms('COM12', 9600)
+        self.board1 = SerialComms('COM7', 9600)
         # self.board2 = SerialComms('COM7', 9600)
         self.audioEngine = AudioEngine(0)
         self.fireBase = UpdateBase()
@@ -72,7 +71,7 @@ class FaceRecog:
     def markAttendance(self, name):
         
         # opening csv file with UTF-8 support
-        with open(f'attendance/{self.fileName}.csv', 'r+', encoding='UTF-8') as file:
+        with open(f'attendance/September/{self.fileName}.csv', 'r+', encoding='UTF-8') as file:
             myDataList = file.readlines()
             nameList=[]
             for line in myDataList:
@@ -98,7 +97,7 @@ class FaceRecog:
                         self.fireBase.addData(self.fileName, name, dtString, u'student', u'On Time')
                     else:
                         file.writelines(f"\n{name},{dtString},Late,✔")
-                        self.fireBase.addData(self.fileName, name, dtString, u'student', u'LLate')
+                        self.fireBase.addData(self.fileName, name, dtString, u'student', u'Late')
                 
                 # using overide - teachers key to mark attendance of students with no rfid
                 elif self.cardsDict[data[0]] == 'OVERIDE':
